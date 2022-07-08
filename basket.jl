@@ -1,17 +1,17 @@
 # For some reason packages are just broken on my pc
-# include("Explosion.jl")
-# import .Explosion.explosion
+include("Explosion.jl")
+import .Explosion.explosion
 
 # TODO list:
-# include calculations for additional dy from t3
-# include eyeheights and such
+# find real world explosion heights
+# cross check tnt calculations
+# find ∂C_T3 AND ∂C_T2
 
-expheight = 0.061250001192092896 
-top_hitbox = 3/32 # r
+expheight = 0.061250001192092896 # Explosion origin within the tnt
 
-ΔT3 = 0.00004 # r
-
+ΔT3 = explosion([0,79.6237500011921,0],[0,87.59375,0],0.,Float32(4),3//27)[2]
 ΔB2 = .3449652888499912 
+#ΔB2 = explosion([0,0,0],[0,0,0],0.,Float32(4),15//27)[2]
 max = round(100/ΔB2)
 min = round(8/ΔB2)
 
@@ -52,7 +52,6 @@ for c ∈ min:max
 end
 
 a = alignments[findmin([abs(o.offset) for o in alignments])[2]]
-#a = alignments[findmin([o.count + o.adj_count for o in alignments])[2]]
 
 println("-----")
 println("B2 Count: $(a.count)")
@@ -63,5 +62,5 @@ println("Adj Offset: $(a.adj_offset)")
 println("Total K TNT per shot: $(a.count + a.adj_count)")
 println("D Value: $(8 - a.adj_offset)")
 
-# tnt equation because I'm lazy
-println((a.adj_offset)/8 * 6//27)
+println("ΔT3: $ΔT3")
+println("ΔB2: $ΔB2")
