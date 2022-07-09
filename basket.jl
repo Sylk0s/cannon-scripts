@@ -62,5 +62,13 @@ println("Adj Offset: $(a.adj_offset)")
 println("Total K TNT per shot: $(a.count + a.adj_count)")
 println("D Value: $(8 - a.adj_offset)")
 
+# Checking my work
+# p = ΔT3 * a.adj_count + ΔB2 * a.count
+# println("Final ΔY recalculated: $p")
+
 println("ΔT3: $ΔT3")
 println("ΔB2: $ΔB2")
+
+e1 = explosion([0,0.,0],[0,7.999999057029914,0],0.,Float32(4),3//27)
+e2 = explosion([0,0.,0],[0,7.999999057029914-ΔT3,0],0.,Float32(4),3//27)
+println("true ΔT3: $(e1[2]-e2[2])")
